@@ -1,0 +1,37 @@
+# dependencies
+node_modules/
+
+# environment files
+.env
+.env.*
+!.env.example
+
+# npm artifacts
+*.tgz
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# logs
+logs/
+*.log
+
+# coverage reports
+coverage/
+
+# build output
+dist/
+build/
+
+# editor configs
+.vscode/
+.idea/
+
+# caches
+.cache/
+
+# temp files
+*.tmp
+*.swp

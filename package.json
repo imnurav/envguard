@@ -1,0 +1,45 @@
+{
+  "name": "@nurav/envguard",
+  "version": "0.0.1",
+  "description": "Developer CLI for checking, fixing, and synchronizing .env files",
+  "main": "bin/index.js",
+  "files": [
+    "bin",
+    "commands",
+    "constants",
+    "core",
+    "docs",
+    "utils",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "cli": "node ./bin/index.js"
+  },
+  "keywords": [
+    "env",
+    "dotenv",
+    "cli",
+    "devops",
+    "configuration",
+    "validation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "envguard": "./bin/index.js"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.3",
+    "dotenv": "^17.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
