@@ -1,5 +1,5 @@
-import fs from "fs";
 import dotenv from "dotenv";
+import fs from "fs";
 
 function isQuotedValueClosed(value, quote) {
   let escaped = false;

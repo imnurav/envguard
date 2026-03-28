@@ -1,5 +1,5 @@
-import fs from "fs";
 import { parseEnv, parseEnvDocument } from "./parser.js";
+import fs from "fs";
 
 function formatEnvValue(value) {
   const normalizedValue = value ?? "";

@@ -1,7 +1,7 @@
+import { appendVars, ensureEnvFile, syncVars } from "./writer.js";
+import { parseEnv } from "./parser.js";
 import path from "path";
 import fs from "fs";
-import { parseEnv } from "./parser.js";
-import { appendVars, ensureEnvFile, syncVars } from "./writer.js";
 import {
   hasExplicitTarget,
   resolveExampleFile,

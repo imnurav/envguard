@@ -1,6 +1,9 @@
+import {
+  DEFAULT_ENV_FILE,
+  DEFAULT_EXAMPLE_FILE,
+} from "../constants/default.js";
 import path from "path";
 import fs from "fs";
-import { DEFAULT_ENV_FILE, DEFAULT_EXAMPLE_FILE } from "../constants/default.js";
 
 export function resolveEnvFile(options = {}) {
   const cwd = process.cwd();

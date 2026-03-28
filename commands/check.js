@@ -1,5 +1,5 @@
-import { checkTargets, collectMissingKeys } from "../core/env-manager.js";
 import { errorPayload, okPayload, printJson } from "../utils/json-output.js";
+import { checkTargets, collectMissingKeys } from "../core/env-manager.js";
 import { logger } from "../utils/logger.js";
 
 export default function check(options = {}) {
@@ -52,13 +52,19 @@ export default function check(options = {}) {
   if (options.perFile) {
     const missingByFile = Object.fromEntries(
       targets
-        .map((target) => [target.name, collectMissingKeys(template.entries, target.entries)])
+        .map((target) => [
+          target.name,
+          collectMissingKeys(template.entries, target.entries),
+        ])
         .filter(([, missingKeys]) => missingKeys.length),
     );
 
     if (options.json) {
       const files = targets.map((target) => {
-        const missingKeys = collectMissingKeys(template.entries, target.entries);
+        const missingKeys = collectMissingKeys(
+          template.entries,
+          target.entries,
+        );
 
         return {
           file: target.name,
@@ -67,16 +73,14 @@ export default function check(options = {}) {
         };
       });
 
-      printJson(
-        {
-          ...okPayload("check", {
-            source: template.examplePath,
-            mode: "per-file",
-            files,
-          }),
-          status: Object.keys(missingByFile).length ? "missing" : "ok",
-        },
-      );
+      printJson({
+        ...okPayload("check", {
+          source: template.examplePath,
+          mode: "per-file",
+          files,
+        }),
+        status: Object.keys(missingByFile).length ? "missing" : "ok",
+      });
       if (options.strict && Object.keys(missingByFile).length) {
         process.exitCode = 1;
       }
@@ -103,23 +107,23 @@ export default function check(options = {}) {
     Object.keys(target.entries).forEach((key) => combinedKeys.add(key));
   }
 
-  const missing = Object.keys(template.entries).filter((key) => !combinedKeys.has(key));
+  const missing = Object.keys(template.entries).filter(
+    (key) => !combinedKeys.has(key),
+  );
 
   if (options.json) {
-    printJson(
-      {
-        ...okPayload("check", {
-          source: template.examplePath,
-          mode: options.all ? "merged-all" : "single-file",
-          files: targets.map((target) => target.name),
-          result: {
-            missing,
-            checkedKeyCount: Object.keys(template.entries).length,
-          },
-        }),
-        status: missing.length ? "missing" : "ok",
-      },
-    );
+    printJson({
+      ...okPayload("check", {
+        source: template.examplePath,
+        mode: options.all ? "merged-all" : "single-file",
+        files: targets.map((target) => target.name),
+        result: {
+          missing,
+          checkedKeyCount: Object.keys(template.entries).length,
+        },
+      }),
+      status: missing.length ? "missing" : "ok",
+    });
     if (options.strict && missing.length) {
       process.exitCode = 1;
     }

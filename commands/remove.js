@@ -1,6 +1,6 @@
+import { okPayload, printJson } from "../utils/json-output.js";
 import { resolveEnvFile } from "../core/resolver.js";
 import { removeVar } from "../core/writer.js";
-import { okPayload, printJson } from "../utils/json-output.js";
 import { logger } from "../utils/logger.js";
 
 export default function remove(key, options) {

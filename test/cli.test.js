@@ -1,9 +1,9 @@
-import test from "node:test";
+import { spawnSync } from "node:child_process";
 import assert from "node:assert/strict";
+import test from "node:test";
+import path from "node:path";
 import fs from "node:fs";
 import os from "node:os";
-import path from "node:path";
-import { spawnSync } from "node:child_process";
 
 const CLI_PATH = path.resolve(process.cwd(), "bin/index.js");
 
@@ -77,10 +77,16 @@ test("sync can use --from to update another env file", () => {
     "--json",
   ]);
   const payload = parseJsonOutput(result);
-  const stagingContent = fs.readFileSync(path.join(workspace, ".env.staging"), "utf8");
+  const stagingContent = fs.readFileSync(
+    path.join(workspace, ".env.staging"),
+    "utf8",
+  );
 
   assert.equal(payload.command, "sync");
-  assert.equal(fs.realpathSync(payload.source), fs.realpathSync(path.join(workspace, ".env.production")));
+  assert.equal(
+    fs.realpathSync(payload.source),
+    fs.realpathSync(path.join(workspace, ".env.production")),
+  );
   assert.deepEqual(payload.result.updated[".env.staging"], ["DATABASE_URL"]);
   assert.match(stagingContent, /JWT_SECRET=staging-secret/);
   assert.match(stagingContent, /DATABASE_URL=prod-db/);
@@ -105,7 +111,12 @@ test("print KEY --all --json shows values by env file", () => {
     ".env.production": "DATABASE_URL=prod-db\n",
   });
 
-  const result = runCli(workspace, ["print", "DATABASE_URL", "--all", "--json"]);
+  const result = runCli(workspace, [
+    "print",
+    "DATABASE_URL",
+    "--all",
+    "--json",
+  ]);
   const payload = parseJsonOutput(result);
 
   assert.equal(payload.command, "print");
@@ -136,7 +147,8 @@ test("add and remove support JSON output", () => {
 test("fix cleans messy blank lines while preserving comments", () => {
   const workspace = createWorkspace({
     ".env.example": "REDIS_URL=\nDATABASE_URL=\nJWT_SECRET=\nKEY=value\n",
-    ".env": "# env\nREDIS_URL=\nDATABASE_URL=\nJWT_SECRET=\n\n\nKEY=value\n\n# other env\nDATABASE_URL=Hello\n\n\nKEY=value\n\nREDIS_URL=\nJWT_SECRET=\n",
+    ".env":
+      "# env\nREDIS_URL=\nDATABASE_URL=\nJWT_SECRET=\n\n\nKEY=value\n\n# other env\nDATABASE_URL=Hello\n\n\nKEY=value\n\nREDIS_URL=\nJWT_SECRET=\n",
   });
 
   const result = runCli(workspace, ["fix"]);
@@ -208,7 +220,10 @@ test("sync --force overwrites target values from the source file", () => {
     "--json",
   ]);
   const payload = parseJsonOutput(result);
-  const stagingContent = fs.readFileSync(path.join(workspace, ".env.staging"), "utf8");
+  const stagingContent = fs.readFileSync(
+    path.join(workspace, ".env.staging"),
+    "utf8",
+  );
 
   assert.equal(payload.command, "sync");
   assert.equal(payload.overwrite, true);
@@ -281,17 +296,21 @@ test("add preserves quoted values and equals signs", () => {
 
   const result = runCli(workspace, [
     "add",
-    'DATABASE_URL=postgres://user:pass@host/db?sslmode=require',
+    "DATABASE_URL=postgres://user:pass@host/db?sslmode=require",
   ]);
   const envContent = fs.readFileSync(path.join(workspace, ".env"), "utf8");
 
   assert.equal(result.status, 0, result.stderr || result.stdout);
-  assert.match(envContent, /DATABASE_URL=postgres:\/\/user:pass@host\/db\?sslmode=require/);
+  assert.match(
+    envContent,
+    /DATABASE_URL=postgres:\/\/user:pass@host\/db\?sslmode=require/,
+  );
 });
 
 test("print parses quoted multiline values and values with equals signs", () => {
   const workspace = createWorkspace({
-    ".env": 'MULTILINE="line1\nline2"\nDATABASE_URL="postgres://user:pass@host/db?x=y"\n',
+    ".env":
+      'MULTILINE="line1\nline2"\nDATABASE_URL="postgres://user:pass@host/db?x=y"\n',
   });
 
   const result = runCli(workspace, ["print", "--json"]);

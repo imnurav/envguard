@@ -1,5 +1,5 @@
-import { syncTargets } from "../core/env-manager.js";
 import { errorPayload, okPayload, printJson } from "../utils/json-output.js";
+import { syncTargets } from "../core/env-manager.js";
 import { logger } from "../utils/logger.js";
 
 export default function sync(options = {}) {
