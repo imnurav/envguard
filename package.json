@@ -26,6 +26,14 @@
     "validation"
   ],
   "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imnurav/envguard.git"
+  },
+  "homepage": "https://github.com/imnurav/envguard#readme",
+  "bugs": {
+    "url": "https://github.com/imnurav/envguard/issues"
+  },
   "license": "ISC",
   "type": "module",
   "engines": {

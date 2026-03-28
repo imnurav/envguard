@@ -2,6 +2,10 @@
 
 `@nurav/envguard` validates, repairs, and manages `.env` files against a source reference file.
 
+Repository: [github.com/imnurav/envguard](https://github.com/imnurav/envguard)
+
+README: [README.md](https://github.com/imnurav/envguard/blob/main/README.md)
+
 Package name:
 
 ```bash

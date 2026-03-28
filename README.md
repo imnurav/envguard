@@ -2,6 +2,10 @@
 
 `@nurav/envguard` is a developer-first CLI for validating, fixing, syncing, and maintaining environment files across local, CI, and deployment workflows.
 
+Repository: [github.com/imnurav/envguard](https://github.com/imnurav/envguard)
+
+Full CLI docs: [docs/cli.md](https://github.com/imnurav/envguard/blob/main/docs/cli.md)
+
 Package name:
 
 ```bash
@@ -271,28 +275,6 @@ What it does:
 - `KEY --all` shows that key across all env files
 - `--json` outputs structured data and includes the source file name
 
-## Publish Readiness
-
-This project is set up for npm publishing as `@nurav/envguard`, and the package contents are restricted so local `.env*` files do not get shipped in the tarball.
-
-1. Choose the final package name and make sure it is available on npm.
-2. Update the version in `package.json` when you are ready to release.
-3. Add any optional npm metadata you want, like repository, author, and homepage.
-4. Run a final local check with:
-
-```bash
-npm test
-npm pack
-```
-
-5. Publish with:
-
-```bash
-npm publish
-```
-
-Code-wise, the CLI is already set up for npm usage through the `bin` entry, restricted publish `files`, a license file, and automated CLI tests.
-
 ## File Resolution
 
 Target resolution priority:
@@ -338,4 +320,4 @@ envguard check --all --per-file --json
 
 ## Documentation
 
-Full command documentation is available in `docs/cli.md`.
+Full command documentation is available in [docs/cli.md](https://github.com/imnurav/envguard/blob/main/docs/cli.md).
